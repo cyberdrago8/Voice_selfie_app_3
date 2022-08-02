@@ -61,7 +61,7 @@ function take_snapshot()
 
     Webcam.snap(function(data_uri){
         if (imge_id=="selfie1"){
-            document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
+        document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
         }
         if (imge_id=="selfie2"){
             document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
