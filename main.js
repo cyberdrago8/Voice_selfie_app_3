@@ -1,41 +1,73 @@
+var SpeechRecognition = window.webkitSpeechRecognition;
+var Content;
+var recognition = new SpeechRecognition();
+
+
+function start()
+{
+    recognition.start();
+} 
+
+
+camera = document.getElementById("camera");
 Webcam.set({
-    width:350,
-    height:300,
-    image_format : 'png',
-    png_quality:90
-  });
+    width:500,
+    height:400,
+    image_format : 'jpeg',
+    jpeg_quality:90
+});
 
-  camera = document.getElementById("camera");
 
-Webcam.attach( '#camera' );
 
-      
+function speak(){
+    var synth = window.speechSynthesis;
+    Webcam.attach(camera);
+    
+    speak_data = "Taking your next Selfie in 5 seconds";
+    var utterThis = new SpeechSynthesisUtterance(speak_data);
+    synth.speak(utterThis);
+
+    setTimeout(function()
+    {
+        imge_id = "selfie1";
+        take_snapshot();
+        speak_data = "Taking your next Selfie in 5 seconds";
+        var utterThis = new SpeechSynthesisUtterance(speak_data);
+        synth.speak(utterThis);
+    },5000);
+
+    setTimeout(function()
+    {
+        imge_id = "selfie2";
+        take_snapshot();
+        speak_data = "Taking your next Selfie in 5 seconds";
+        var utterThis = new SpeechSynthesisUtterance(speak_data);
+        synth.speak(utterThis);
+    },10000);
+
+    setTimeout(function()
+    {
+        imge_id = "selfie3";
+        take_snapshot();
+        speak_data = "Taking your next Selfie in 5 seconds";
+        var utterThis = new SpeechSynthesisUtterance(speak_data);
+        synth.speak(utterThis);
+    },15000);
+}
+
 function take_snapshot()
 {
-    Webcam.snap(function(data_uri) {
-        document.getElementById("result").innerHTML = '<img id="captured_image" src="'+data_uri+'"/>';
+    console.log(imge_id);
+
+    Webcam.snap(function(data_uri){
+        if (imge_id=="selfie1"){
+            document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
+        }
+        if (imge_id=="selfie2"){
+            document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
+        }
+        if (imge_id=="selfie3"){
+            document.getElementById("result1").innerHTML = '<img_id ="selfie1" src="'+dara_uri+'"/>';
+        }
     });
-}
-
-  console.log('ml5 version:', ml5.version);
-  
-classifier = ml5.imageClassifier('https://teachablemachine.withgoogle.com/models/OtIqRt5Vv/',modelLoaded);
-
-  function modelLoaded() {
-    console.log('Model Loaded!');
-  }
-function check()
-{
-  img = document.getElementById('captured_image')
-  classifier.classify(img, gotResult)
-}
- 
-function gotResult(error, results) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log(results);
-    document.getElementById("result_object_name").innerHTML = result[0].label;
-    document.getElementById("result_object_accuracy").innerHTML = result[0].confidence.toFixed(3);
-  }
 }
